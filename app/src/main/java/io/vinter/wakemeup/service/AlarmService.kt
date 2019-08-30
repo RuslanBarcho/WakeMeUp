@@ -4,7 +4,6 @@ import android.app.Notification
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.*
@@ -39,9 +38,9 @@ class AlarmService : Service() {
             am.setStreamVolume(AudioManager.STREAM_MUSIC, getVolumeLevel(repository), 0)
             if (repository.getVibrationNeed()){
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                    vibrator.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 500, 0, 200, 0, 500, 0), 1))
+                    vibrator.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 550, 320, 550, 320, 550, 320), 1))
                 } else {
-                    vibrator.vibrate(25000)
+                    vibrator.vibrate(longArrayOf(0, 550, 320, 550, 320, 550, 320), 1)
                 }
             }
             mediaPlayer.start()
