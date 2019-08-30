@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WakeMeUp</string>
+    <string name="title_home">Друзья</string>
+    <string name="title_notifications">Профиль</string>
+    <string name="button_add">Добавить</string>
+    <string name="requests">Запросы</string>
+    <string name="button_not_sleep">Я не сплю!</string>
+    <string name="search_add">Добавить</string>
+    <string name="user_name">Имя пользователя</string>
+    <string name="hello_blank_fragment">Hello blank</string>
+    <string name="settings">Настройки</string>
+    <string name="volume">Громкость</string>
+    <string name="volume_low">Выключено</string>
+    <string name="volume_medium">Средне</string>
+    <string name="volume_max">Хочу проснуться!</string>
+    <string name="unable_load_friends">Не удалось загрузить информацию</string>
+    <string name="vibration">Вибрация</string>
+</resources>

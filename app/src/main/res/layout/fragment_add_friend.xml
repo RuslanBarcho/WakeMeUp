@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/dialog_inset"
+    android:gravity="center"
+    android:minWidth="300dp"
+    android:orientation="vertical"
+    tools:context=".ui.friends.AddFriendFragment">
+
+    <EditText
+        android:id="@+id/friend_query"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/ripple_input"
+        android:ems="10"
+        android:hint="@string/user_name"
+        android:inputType="textEmailAddress"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp" />
+
+    <Button
+        android:id="@+id/friend_search_add"
+        android:layout_width="160dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/ripple_accent"
+        android:text="@string/search_add" />
+</LinearLayout>
