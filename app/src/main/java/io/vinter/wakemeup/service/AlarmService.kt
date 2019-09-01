@@ -1,13 +1,11 @@
 package io.vinter.wakemeup.service
 
-import android.app.Notification
 import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.*
-import android.support.v4.app.NotificationCompat
 import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.PreferencesRepository
 import io.vinter.wakemeup.utils.NotificationManager
@@ -56,15 +54,7 @@ class AlarmService : Service() {
 
     private fun startForeground() {
         val channelId = "WAKEUP"
-        val notificationBuilder = NotificationCompat.Builder(this, channelId )
-        val notification = notificationBuilder.setOngoing(true)
-                .setContentTitle(getString(R.string.notification_ongoing_title))
-                .setContentText(getString(R.string.notification_ongoing))
-                .setSmallIcon(R.drawable.ic_friends_alarm)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setCategory(Notification.CATEGORY_SERVICE)
-                .build()
-        startForeground(101, notification)
+        startForeground(101, NotificationManager.getOngoingNotification(channelId, this))
     }
 
     override fun onDestroy() {
