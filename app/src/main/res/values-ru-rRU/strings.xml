@@ -16,4 +16,8 @@
     <string name="volume_max">Хочу проснуться!</string>
     <string name="unable_load_friends">Не удалось загрузить информацию</string>
     <string name="vibration">Вибрация</string>
+    <string name="notification_ongoing_title">Просыпайся!</string>
+    <string name="notification_ongoing">Вставай прямо сейчас!</string>
+    <string name="notification_missed_title">Вы пропустили звонок</string>
+    <string name="notification_missed">Нам не удалось Вас разбудить(</string>
 </resources>

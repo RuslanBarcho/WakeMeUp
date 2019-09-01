@@ -1,8 +1,6 @@
 package io.vinter.wakemeup.service
 
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
@@ -11,11 +9,9 @@ import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import android.os.Build
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
-import io.vinter.wakemeup.R
 import android.os.PowerManager
 import android.os.AsyncTask
+import io.vinter.wakemeup.utils.NotificationManager
 
 
 class MyFirebasePushService : FirebaseMessagingService() {
@@ -23,8 +19,7 @@ class MyFirebasePushService : FirebaseMessagingService() {
     override fun onMessageReceived(p0: RemoteMessage?) {
         super.onMessageReceived(p0)
         val runnable = Runnable {
-            createNotificationChannel()
-            sendNotification("WAKEUP", "Wake up!", "Wake up immediately!")
+            NotificationManager.createNotificationChannel(this)
             wakeupScreen()
             Toast.makeText(applicationContext, p0.toString(), Toast.LENGTH_SHORT).show()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -35,31 +30,6 @@ class MyFirebasePushService : FirebaseMessagingService() {
         }
         val handler = Handler(Looper.getMainLooper())
         handler.post(runnable)
-    }
-
-    private fun sendNotification(channel: String, title: String, content: String) {
-        val builder = NotificationCompat.Builder(this, channel)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
-                .setSmallIcon(R.drawable.ic_friends_alarm)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setVibrate(LongArray(0))
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-        with(NotificationManagerCompat.from(this)) {
-            notify(12, builder.build())
-        }
-    }
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "wake me up"
-            val descriptionText = "wake up notifications"
-            val channel = NotificationChannel("WAKEUP", name, NotificationManager.IMPORTANCE_HIGH).apply {
-                description = descriptionText
-            }
-            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
     }
 
     @SuppressLint("StaticFieldLeak")

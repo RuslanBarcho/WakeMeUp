@@ -10,6 +10,7 @@ import android.os.*
 import android.support.v4.app.NotificationCompat
 import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.PreferencesRepository
+import io.vinter.wakemeup.utils.NotificationManager
 
 class AlarmService : Service() {
 
@@ -17,6 +18,7 @@ class AlarmService : Service() {
     private lateinit var am: AudioManager
     private lateinit var vibrator: Vibrator
     private var volumeBefore = 0
+    private var needNotification = false
 
     override fun onBind(intent: Intent): IBinder {
         throw UnsupportedOperationException("Not yet implemented") as Throwable
@@ -35,7 +37,7 @@ class AlarmService : Service() {
         val runnable = Runnable {
             volumeBefore = am.getStreamVolume(AudioManager.STREAM_MUSIC)
             am.isSpeakerphoneOn = true
-            am.setStreamVolume(AudioManager.STREAM_MUSIC, getVolumeLevel(repository), 0)
+            am.setStreamVolume(AudioManager.STREAM_MUSIC, getVolumeLevel(repository, am), 0)
             if (repository.getVibrationNeed()){
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                     vibrator.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 550, 320, 550, 320, 550, 320), 1))
@@ -44,7 +46,10 @@ class AlarmService : Service() {
                 }
             }
             mediaPlayer.start()
-            Handler().postDelayed({ this.stopSelf() }, 25000)
+            Handler().postDelayed({
+                needNotification = true
+                this.stopSelf()
+            }, 25000)
         }
         handler.post(runnable)
     }
@@ -53,6 +58,8 @@ class AlarmService : Service() {
         val channelId = "WAKEUP"
         val notificationBuilder = NotificationCompat.Builder(this, channelId )
         val notification = notificationBuilder.setOngoing(true)
+                .setContentTitle(getString(R.string.notification_ongoing_title))
+                .setContentText(getString(R.string.notification_ongoing))
                 .setSmallIcon(R.drawable.ic_friends_alarm)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(Notification.CATEGORY_SERVICE)
@@ -63,16 +70,17 @@ class AlarmService : Service() {
     override fun onDestroy() {
         vibrator.cancel()
         mediaPlayer.stop()
+        if (needNotification) NotificationManager.sendNotification("WAKEUP", getString(R.string.notification_missed_title), getString(R.string.notification_missed), this)
         am.setStreamVolume(AudioManager.STREAM_MUSIC, volumeBefore, 0)
         super.onDestroy()
     }
 
-    private fun getVolumeLevel(prefs: PreferencesRepository): Int{
+    private fun getVolumeLevel(prefs: PreferencesRepository, audioManager: AudioManager): Int{
         return when (prefs.getVolume()){
             R.id.volume_set_low -> 0
-            R.id.volume_set_medium -> 8
-            R.id.volume_set_max -> 15
-            else -> 8
+            R.id.volume_set_medium -> audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / 2
+            R.id.volume_set_max -> audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+            else -> audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / 2
         }
     }
 

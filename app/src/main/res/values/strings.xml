@@ -16,4 +16,8 @@
     <string name="volume_max">I want to wake up!</string>
     <string name="unable_load_friends">Unable to load friends</string>
     <string name="vibration">Vibration</string>
+    <string name="notification_ongoing_title">Wake up!</string>
+    <string name="notification_ongoing">Wake up right now!</string>
+    <string name="notification_missed_title">Wake up missed</string>
+    <string name="notification_missed">We were unable to wake you up</string>
 </resources>
