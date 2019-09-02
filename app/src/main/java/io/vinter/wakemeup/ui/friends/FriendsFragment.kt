@@ -2,12 +2,8 @@ package io.vinter.wakemeup.ui.friends
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -15,39 +11,53 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import io.vinter.wakemeup.R
+import io.vinter.wakemeup.data.PreferencesRepository
 import io.vinter.wakemeup.utils.PairRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_friends.*
 
 class FriendsFragment : Fragment() {
 
     private lateinit var viewModel: FriendsViewModel
-    private lateinit var preferences: SharedPreferences
+    private lateinit var preferences: PreferencesRepository
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         viewModel = ViewModelProviders.of(this).get(FriendsViewModel::class.java)
         return inflater.inflate(R.layout.fragment_friends, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferences = context!!.getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
-        val recycler = pairs_recycler
+        preferences = PreferencesRepository(context!!)
 
-        if (viewModel.friends.value == null && !viewModel.loading) viewModel.getFiends(preferences.getString("token", "")!!, context!!)
-        viewModel.friends.observe(this, Observer {
-            if (it != null){
-                val adapter = PairRecyclerAdapter(context!!, it) {id -> viewModel.sendCall(preferences.getString("token", "")!!, id)}
-                val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
-                recycler.layoutManager = LinearLayoutManager(context)
-                recycler.layoutAnimation = animation
-                recycler.adapter = adapter
+        if (viewModel.state.value !is FriendsState.Loading && viewModel.state.value !is FriendsState.Success)
+            viewModel.getFiends(preferences.getToken())
+
+        viewModel.state.observe(this, Observer {
+            when (it) {
+                is FriendsState.Loading -> {
+                    friends_loader.visibility = View.VISIBLE
+                    friends_error.visibility = View.GONE
+                }
+                is FriendsState.Success -> {
+                    friends_loader.visibility = View.GONE
+                    friends_error.visibility = View.GONE
+                    val adapter = PairRecyclerAdapter(context!!, it.friends) {id -> viewModel.sendCall(preferences.getToken(), id)}
+                    val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
+                    pairs_recycler.layoutManager = LinearLayoutManager(context)
+                    pairs_recycler.layoutAnimation = animation
+                    pairs_recycler.adapter = adapter
+                }
+                is FriendsState.Error -> {
+                    friends_loader.visibility = View.GONE
+                    friends_error.visibility = View.VISIBLE
+                    friends_error.setOnRetryListener { viewModel.getFiends(preferences.getToken()) }
+                }
             }
         })
 
         viewModel.messages.observe(this, Observer {
-            if (it != null){
-                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+            if (it != null) {
+                Toast.makeText(context, it.getLocalizedMessage(context), Toast.LENGTH_SHORT).show()
                 viewModel.messages.postValue(null)
             }
         })
@@ -60,24 +70,18 @@ class FriendsFragment : Fragment() {
 
         viewModel.error.observe(this, Observer {
             if (it != null) {
-                val snackBar = Snackbar.make(friends_snackbar, it, Snackbar.LENGTH_INDEFINITE)
-                        .setActionTextColor(ContextCompat.getColor(context!!,R.color.colorAccent))
-                snackBar.setAction("Retry") {
-                    snackBar.dismiss()
-                    viewModel.getFiends(preferences.getString("token", "")!!, context!!)
-                }
-                snackBar.show()
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                 viewModel.error.postValue(null)
             }
         })
     }
 
     fun addFriend(query: String){
-        viewModel.sendRequest(preferences.getString("token", "")!!, query)
+        viewModel.sendRequest(preferences.getToken(), query)
     }
 
     fun refreshFriendList(){
-        viewModel.getFiends(preferences.getString("token", "")!!, context!!)
+        viewModel.getFiends(preferences.getToken())
     }
 
 }

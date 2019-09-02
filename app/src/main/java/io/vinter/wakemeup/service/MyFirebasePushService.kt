@@ -35,6 +35,7 @@ class MyFirebasePushService : FirebaseMessagingService() {
     @SuppressLint("StaticFieldLeak")
     private fun wakeupScreen() {
         object : AsyncTask<Void, Void, Exception>() {
+            @SuppressLint("WakelockTimeout")
             override fun doInBackground(vararg params: Void): Exception? {
                 try {
                     val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager

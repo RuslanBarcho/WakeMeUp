@@ -1,6 +1,5 @@
 package io.vinter.wakemeup.ui.profile
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,6 +9,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 
 import io.vinter.wakemeup.R
+import io.vinter.wakemeup.data.PreferencesRepository
 import io.vinter.wakemeup.service.AlarmService
 import io.vinter.wakemeup.ui.request.RequestActivity
 import io.vinter.wakemeup.ui.settings.SettingsActivity
@@ -26,10 +26,10 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val preferences = context!!.getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
+        val preferences = PreferencesRepository(context!!)
 
         GlideApp.with(context!!)
-                .load(preferences.getString("pictureURL", ""))
+                .load(preferences.getPictureUrl())
                 .override(300, 300)
                 .placeholder(R.drawable.placeholder_image)
                 .error(R.drawable.placeholder_image)

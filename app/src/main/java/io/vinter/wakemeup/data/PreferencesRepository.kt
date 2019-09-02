@@ -23,4 +23,10 @@ class PreferencesRepository(context: Context) {
                 .putString("id", user.id)
                 .apply()
     }
+
+    fun getToken(): String { return preferences.getString("token", "")!! }
+
+    fun getUserId(): String? { return preferences.getString("id", "") }
+
+    fun getPictureUrl(): String? { return preferences.getString("pictureURL", "") }
 }

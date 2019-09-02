@@ -22,4 +22,6 @@
     <string name="notification_missed">We were unable to wake you up</string>
     <string name="firebase_success">Connected to Firebase</string>
     <string name="firebase_error">Failed connect to Firebase</string>
+    <string name="message_call_sent">Call sent</string>
+    <string name="retry">Retry</string>
 </resources>

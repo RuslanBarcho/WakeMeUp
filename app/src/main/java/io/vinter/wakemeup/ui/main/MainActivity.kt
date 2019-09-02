@@ -1,8 +1,6 @@
 package io.vinter.wakemeup.ui.main
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -11,6 +9,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessaging
 import io.vinter.wakemeup.R
+import io.vinter.wakemeup.data.PreferencesRepository
 import io.vinter.wakemeup.ui.friends.FriendsFragment
 import io.vinter.wakemeup.ui.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,7 +18,6 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var fragmentManager: FragmentManager
-    private lateinit var preferences: SharedPreferences
 
     private val mOnNavigationItemSelectedListener = { item: MenuItem ->
         when (item.itemId) {
@@ -32,7 +30,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        preferences = getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
+
+        val preferencesRepository = PreferencesRepository(this)
         fragmentManager = supportFragmentManager
         if ((fragmentManager.findFragmentByTag("all") == null) and (fragmentManager.findFragmentByTag("profile") == null)) {
             fragmentManager.beginTransaction()
@@ -44,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        FirebaseMessaging.getInstance().subscribeToTopic(preferences.getString("id", ""))
+        FirebaseMessaging.getInstance().subscribeToTopic(preferencesRepository.getUserId())
                 .addOnCompleteListener { task ->
                     var msg = getString(R.string.firebase_success)
                     if (!task.isSuccessful) msg = getString(R.string.firebase_error)

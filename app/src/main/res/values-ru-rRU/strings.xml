@@ -22,4 +22,6 @@
     <string name="notification_missed">Нам не удалось Вас разбудить(</string>
     <string name="firebase_success">Подключено к Firebase</string>
     <string name="firebase_error">Не удалось подключение к Firebase</string>
+    <string name="message_call_sent">Запрос отправлен</string>
+    <string name="retry">Повторить</string>
 </resources>
