@@ -11,6 +11,8 @@ import io.vinter.wakemeup.R
 
 object NotificationManager {
 
+    private const val mainChannelId = "WAKEUP"
+
     fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "wake me up"
@@ -23,8 +25,8 @@ object NotificationManager {
         }
     }
 
-    fun sendNotification(channel: String, title: String, content: String, context: Context) {
-        val builder = NotificationCompat.Builder(context, channel)
+    fun sendNotification(title: String, content: String, context: Context) {
+        val builder = NotificationCompat.Builder(context, mainChannelId)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setSmallIcon(R.drawable.ic_friends_alarm)
                 .setContentTitle(title)
@@ -36,8 +38,8 @@ object NotificationManager {
         }
     }
 
-    fun getOngoingNotification(channelId: String, context: Context): Notification {
-        return NotificationCompat.Builder(context, channelId ).setOngoing(true)
+    fun getOngoingNotification(context: Context): Notification {
+        return NotificationCompat.Builder(context, mainChannelId).setOngoing(true)
                 .setContentTitle(context.getString(R.string.notification_ongoing_title))
                 .setContentText(context.getString(R.string.notification_ongoing))
                 .setSmallIcon(R.drawable.ic_friends_alarm)

@@ -5,7 +5,7 @@
     <string name="button_add">Add</string>
     <string name="requests">Requests</string>
     <string name="button_not_sleep">I\'m not sleeping!</string>
-    <string name="search_add">Search &amp; add</string>
+    <string name="search_add">Add</string>
     <string name="user_name">User name</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -20,4 +20,6 @@
     <string name="notification_ongoing">Wake up right now!</string>
     <string name="notification_missed_title">Wake up missed</string>
     <string name="notification_missed">We were unable to wake you up</string>
+    <string name="firebase_success">Connected to Firebase</string>
+    <string name="firebase_error">Failed connect to Firebase</string>
 </resources>

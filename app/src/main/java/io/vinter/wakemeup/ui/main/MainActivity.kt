@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Toast
@@ -47,8 +46,8 @@ class MainActivity : AppCompatActivity() {
 
         FirebaseMessaging.getInstance().subscribeToTopic(preferences.getString("id", ""))
                 .addOnCompleteListener { task ->
-                    var msg = "Connected to Firebase"
-                    if (!task.isSuccessful) msg = "Failed to fetch Firebase"
+                    var msg = getString(R.string.firebase_success)
+                    if (!task.isSuccessful) msg = getString(R.string.firebase_error)
                     Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
                 }
     }

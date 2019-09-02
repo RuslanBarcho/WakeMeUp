@@ -26,10 +26,11 @@ class AlarmService : Service() {
         super.onCreate()
         startForeground()
         am = applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         mediaPlayer = MediaPlayer.create(this, R.raw.alarm)
+
         mediaPlayer.isLooping = true
         val handler = Handler(Looper.getMainLooper())
-        vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val repository = PreferencesRepository(this)
 
         val runnable = Runnable {
@@ -53,14 +54,13 @@ class AlarmService : Service() {
     }
 
     private fun startForeground() {
-        val channelId = "WAKEUP"
-        startForeground(101, NotificationManager.getOngoingNotification(channelId, this))
+        startForeground(101, NotificationManager.getOngoingNotification(this))
     }
 
     override fun onDestroy() {
         vibrator.cancel()
         mediaPlayer.stop()
-        if (needNotification) NotificationManager.sendNotification("WAKEUP", getString(R.string.notification_missed_title), getString(R.string.notification_missed), this)
+        if (needNotification) NotificationManager.sendNotification(getString(R.string.notification_missed_title), getString(R.string.notification_missed), this)
         am.setStreamVolume(AudioManager.STREAM_MUSIC, volumeBefore, 0)
         super.onDestroy()
     }
