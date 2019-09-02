@@ -29,8 +29,7 @@ class FriendsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         preferences = PreferencesRepository(context!!)
 
-        if (viewModel.state.value !is FriendsState.Loading && viewModel.state.value !is FriendsState.Success)
-            viewModel.getFiends(preferences.getToken())
+        if (viewModel.state.value is FriendsState.Initial) viewModel.getFiends(preferences.getToken())
 
         viewModel.state.observe(this, Observer {
             when (it) {
@@ -41,15 +40,14 @@ class FriendsFragment : Fragment() {
                 is FriendsState.Success -> {
                     friends_loader.visibility = View.GONE
                     friends_error.visibility = View.GONE
-                    val adapter = PairRecyclerAdapter(context!!, it.friends) {id -> viewModel.sendCall(preferences.getToken(), id)}
-                    val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
                     pairs_recycler.layoutManager = LinearLayoutManager(context)
-                    pairs_recycler.layoutAnimation = animation
-                    pairs_recycler.adapter = adapter
+                    pairs_recycler.layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
+                    pairs_recycler.adapter = PairRecyclerAdapter(context!!, it.friends) {id -> viewModel.sendCall(preferences.getToken(), id)}
                 }
                 is FriendsState.Error -> {
                     friends_loader.visibility = View.GONE
                     friends_error.visibility = View.VISIBLE
+                    friends_error.setErrorMessage(getString(R.string.unable_load_friends))
                     friends_error.setOnRetryListener { viewModel.getFiends(preferences.getToken()) }
                 }
             }

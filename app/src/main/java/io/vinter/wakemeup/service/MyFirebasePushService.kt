@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import android.os.Build
@@ -21,7 +20,6 @@ class MyFirebasePushService : FirebaseMessagingService() {
         val runnable = Runnable {
             NotificationManager.createNotificationChannel(this)
             wakeupScreen()
-            Toast.makeText(applicationContext, p0.toString(), Toast.LENGTH_SHORT).show()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 startForegroundService(Intent(applicationContext, AlarmService::class.java))
             } else {

@@ -52,7 +52,7 @@
 
     <io.vinter.wakemeup.ui.view.ErrorView
         android:id="@+id/friends_error"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/friends_add"

@@ -14,6 +14,10 @@ class ErrorView @kotlin.jvm.JvmOverloads constructor(context: Context, attrs: At
     }
 
     fun setOnRetryListener(listener: () -> Unit){
-        erroe_view_retry.setOnClickListener { listener() }
+        error_view_retry.setOnClickListener { listener() }
+    }
+
+    fun setErrorMessage(msg: String?){
+        error_view_message.text = msg
     }
 }

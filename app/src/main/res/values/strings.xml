@@ -24,4 +24,5 @@
     <string name="firebase_error">Failed connect to Firebase</string>
     <string name="message_call_sent">Call sent</string>
     <string name="retry">Retry</string>
+    <string name="error_default">An error occurred</string>
 </resources>

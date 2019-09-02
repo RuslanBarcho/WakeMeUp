@@ -14,7 +14,7 @@
     <string name="volume_low">Выключено</string>
     <string name="volume_medium">Средне</string>
     <string name="volume_max">Хочу проснуться!</string>
-    <string name="unable_load_friends">Не удалось загрузить информацию</string>
+    <string name="unable_load_friends">Не удалось загрузить список друзей</string>
     <string name="vibration">Вибрация</string>
     <string name="notification_ongoing_title">Просыпайся!</string>
     <string name="notification_ongoing">Вставай прямо сейчас!</string>
@@ -22,6 +22,7 @@
     <string name="notification_missed">Нам не удалось Вас разбудить(</string>
     <string name="firebase_success">Подключено к Firebase</string>
     <string name="firebase_error">Не удалось подключение к Firebase</string>
-    <string name="message_call_sent">Запрос отправлен</string>
     <string name="retry">Повторить</string>
+    <string name="message_call_sent">Запрос отправлен</string>
+    <string name="error_default">Произошла ошибка</string>
 </resources>

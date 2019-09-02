@@ -20,8 +20,12 @@ class FriendsViewModel : ViewModel() {
     var messages = MutableLiveData<Message>()
     var error = MutableLiveData<String>()
 
+    init {
+        state.value = FriendsState.Initial()
+    }
+
     fun getFiends(token: String) {
-        state.postValue(FriendsState.Loading())
+        if (state.value !is FriendsState.Success) state.postValue(FriendsState.Loading())
         NetModule.retrofit.create(UserService::class.java)
                 .getFriends("Bearer $token")
                 .subscribeOn(Schedulers.io())
