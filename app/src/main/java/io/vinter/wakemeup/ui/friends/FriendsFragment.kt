@@ -34,24 +34,26 @@ class FriendsFragment : Fragment() {
         viewModel.state.observe(this, Observer {
             when (it) {
                 is FriendsState.Loading -> {
-                    friends_loader.visibility = View.VISIBLE
-                    friends_error.visibility = View.GONE
+                    configureRefresh(false, enabled = false)
+                    configureVisibility(View.GONE, View.GONE, View.VISIBLE)
                 }
                 is FriendsState.Success -> {
-                    friends_loader.visibility = View.GONE
-                    friends_error.visibility = View.GONE
+                    configureRefresh(false, enabled = true)
+                    configureVisibility(View.VISIBLE, View.GONE, View.GONE)
                     pairs_recycler.layoutManager = LinearLayoutManager(context)
                     pairs_recycler.layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
                     pairs_recycler.adapter = PairRecyclerAdapter(context!!, it.friends) {id -> viewModel.sendCall(preferences.getToken(), id)}
                 }
                 is FriendsState.Error -> {
-                    friends_loader.visibility = View.GONE
-                    friends_error.visibility = View.VISIBLE
+                    configureRefresh(false, enabled = false)
+                    configureVisibility(View.GONE, View.VISIBLE, View.GONE)
                     friends_error.setErrorMessage(getString(R.string.unable_load_friends))
                     friends_error.setOnRetryListener { viewModel.getFiends(preferences.getToken()) }
                 }
             }
         })
+
+        friends_refresh.setOnRefreshListener { refreshFriendList() }
 
         viewModel.messages.observe(this, Observer {
             if (it != null) {
@@ -74,12 +76,19 @@ class FriendsFragment : Fragment() {
         })
     }
 
-    fun addFriend(query: String){
-        viewModel.sendRequest(preferences.getToken(), query)
+    private fun configureVisibility(recycler: Int, error: Int, loader: Int){
+        pairs_recycler.visibility = recycler
+        friends_loader.visibility = loader
+        friends_error.visibility = error
     }
 
-    fun refreshFriendList(){
-        viewModel.getFiends(preferences.getToken())
+    private fun configureRefresh(refresh: Boolean, enabled: Boolean){
+        friends_refresh.isRefreshing = refresh
+        friends_refresh.isEnabled = enabled
     }
+
+    fun addFriend(query: String){ viewModel.sendRequest(preferences.getToken(), query) }
+
+    fun refreshFriendList(){ viewModel.getFiends(preferences.getToken()) }
 
 }

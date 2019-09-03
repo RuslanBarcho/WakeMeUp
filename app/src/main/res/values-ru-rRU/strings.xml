@@ -25,4 +25,5 @@
     <string name="retry">Повторить</string>
     <string name="message_call_sent">Запрос отправлен</string>
     <string name="error_default">Произошла ошибка</string>
+    <string name="unable_load_requests">Не удалось загрузить запросы</string>
 </resources>

@@ -1,5 +1,6 @@
 package io.vinter.wakemeup.ui.request
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
@@ -10,22 +11,27 @@ import io.vinter.wakemeup.entity.Request
 import io.vinter.wakemeup.network.NetModule
 import io.vinter.wakemeup.network.service.FriendService
 
+@SuppressLint("CheckResult")
 class RequestViewModel : ViewModel(){
-    var requests = MutableLiveData<ArrayList<Request>>()
+
+    var state = MutableLiveData<RequestState>()
     var message = MutableLiveData<Pair<Message, Request>>()
-    var loading = false
+
+    init {
+        state.value = RequestState.Initial()
+    }
 
     fun getRequests(token: String){
-        loading = true
+        if (state.value !is RequestState.Success) state.postValue(RequestState.Loading())
         NetModule.retrofit.create(FriendService::class.java)
                 .getRequests("Bearer $token")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess{loading = false}
-                .subscribe(requests::postValue) { e ->
-                    Log.e("Network", e.message)
-                    loading = false
-                }
+                .subscribe({requests ->
+                    state.postValue(RequestState.Success(requests))
+                }, {
+                    state.postValue(RequestState.Error())
+                })
     }
 
     fun acceptRequest(token: String, request: Request){
