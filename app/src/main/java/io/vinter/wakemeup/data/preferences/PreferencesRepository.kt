@@ -1,16 +1,13 @@
-package io.vinter.wakemeup.data
+package io.vinter.wakemeup.data.preferences
 
 import android.content.Context
 import io.vinter.wakemeup.R
+import io.vinter.wakemeup.data.volume.VolumeStates
 import io.vinter.wakemeup.entity.LoginResponse
 
 class PreferencesRepository(context: Context) {
 
     private var preferences = context.getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
-
-    fun setVolume(value: Int) { preferences.edit().putInt("volume", value).apply() }
-
-    fun getVolume(): Int { return preferences.getInt("volume", R.id.volume_set_medium) }
 
     fun setVibrationNeed(value: Boolean) { preferences.edit().putBoolean("vibrationNeed", value).apply() }
 
@@ -29,4 +26,12 @@ class PreferencesRepository(context: Context) {
     fun getUserId(): String? { return preferences.getString("id", "") }
 
     fun getPictureUrl(): String? { return preferences.getString("pictureURL", "") }
+
+    fun setVolume(value: VolumeStates){
+        preferences.edit().putString("vol", value.toString()).apply()
+    }
+
+    fun getVolume(): VolumeStates{
+        return VolumeStates.valueOf(preferences.getString("vol", "MEDIUM")!!)
+    }
 }

@@ -11,7 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 
 import io.vinter.wakemeup.R
-import io.vinter.wakemeup.data.PreferencesRepository
+import io.vinter.wakemeup.data.preferences.PreferencesRepository
+import io.vinter.wakemeup.data.volume.VolumeStates
 import kotlinx.android.synthetic.main.fragment_volume_set.*
 
 class VolumeSetFragment : DialogFragment() {
@@ -25,12 +26,16 @@ class VolumeSetFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val preferencesRepository = PreferencesRepository(context!!)
         when (preferencesRepository.getVolume()){
-            R.id.volume_set_low -> volume_set_group.check(R.id.volume_set_low)
-            R.id.volume_set_medium -> volume_set_group.check(R.id.volume_set_medium)
-            R.id.volume_set_max -> volume_set_group.check(R.id.volume_set_max)
+            VolumeStates.OFF -> volume_set_group.check(R.id.volume_set_low)
+            VolumeStates.MEDIUM -> volume_set_group.check(R.id.volume_set_medium)
+            VolumeStates.MAX -> volume_set_group.check(R.id.volume_set_max)
         }
         volume_set_group.setOnCheckedChangeListener { _, i ->
-            preferencesRepository.setVolume(i)
+            when (i){
+                R.id.volume_set_low -> preferencesRepository.setVolume(VolumeStates.OFF)
+                R.id.volume_set_medium -> preferencesRepository.setVolume(VolumeStates.MEDIUM)
+                R.id.volume_set_max -> preferencesRepository.setVolume(VolumeStates.MAX)
+            }
         }
     }
 

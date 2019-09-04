@@ -9,7 +9,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import io.vinter.wakemeup.R
-import io.vinter.wakemeup.data.PreferencesRepository
+import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.utils.RequestRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_request.*
 

@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import io.vinter.wakemeup.R
-import io.vinter.wakemeup.data.PreferencesRepository
+import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.network.form.LoginForm
 import io.vinter.wakemeup.ui.main.MainActivity
 import io.vinter.wakemeup.ui.register.RegisterActivity

@@ -3,7 +3,7 @@ package io.vinter.wakemeup.ui.settings
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import io.vinter.wakemeup.R
-import io.vinter.wakemeup.data.PreferencesRepository
+import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.ui.settings.volume.VolumeSetFragment
 import kotlinx.android.synthetic.main.activity_settings.*
 

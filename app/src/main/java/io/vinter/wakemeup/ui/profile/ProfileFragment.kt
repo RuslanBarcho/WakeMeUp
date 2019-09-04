@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 
 import io.vinter.wakemeup.R
-import io.vinter.wakemeup.data.PreferencesRepository
+import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.service.AlarmService
 import io.vinter.wakemeup.ui.request.RequestActivity
 import io.vinter.wakemeup.ui.settings.SettingsActivity

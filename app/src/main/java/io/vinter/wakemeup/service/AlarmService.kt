@@ -7,7 +7,8 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.*
 import io.vinter.wakemeup.R
-import io.vinter.wakemeup.data.PreferencesRepository
+import io.vinter.wakemeup.data.preferences.PreferencesRepository
+import io.vinter.wakemeup.data.volume.VolumeStates
 import io.vinter.wakemeup.utils.NotificationManager
 
 class AlarmService : Service() {
@@ -67,10 +68,9 @@ class AlarmService : Service() {
 
     private fun getVolumeLevel(prefs: PreferencesRepository, audioManager: AudioManager): Int{
         return when (prefs.getVolume()){
-            R.id.volume_set_low -> 0
-            R.id.volume_set_medium -> audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / 2
-            R.id.volume_set_max -> audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-            else -> audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / 2
+            VolumeStates.OFF -> 0
+            VolumeStates.MEDIUM -> audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / 2
+            VolumeStates.MAX -> audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
         }
     }
 

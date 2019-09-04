@@ -9,7 +9,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessaging
 import io.vinter.wakemeup.R
-import io.vinter.wakemeup.data.PreferencesRepository
+import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.ui.friends.FriendsFragment
 import io.vinter.wakemeup.ui.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
