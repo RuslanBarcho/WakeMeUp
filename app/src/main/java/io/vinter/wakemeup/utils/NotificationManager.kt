@@ -3,11 +3,14 @@ package io.vinter.wakemeup.utils
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import io.vinter.wakemeup.R
+import io.vinter.wakemeup.ui.main.MainActivity
 
 object NotificationManager {
 
@@ -39,12 +42,17 @@ object NotificationManager {
     }
 
     fun getOngoingNotification(context: Context): Notification {
+
+        val intent = Intent(context, MainActivity::class.java)
+        val pending = PendingIntent.getActivity(context, 101, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         return NotificationCompat.Builder(context, mainChannelId).setOngoing(true)
                 .setContentTitle(context.getString(R.string.notification_ongoing_title))
                 .setContentText(context.getString(R.string.notification_ongoing))
                 .setSmallIcon(R.drawable.ic_friends_alarm)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(Notification.CATEGORY_SERVICE)
+                .setContentIntent(pending)
                 .build()
     }
 
