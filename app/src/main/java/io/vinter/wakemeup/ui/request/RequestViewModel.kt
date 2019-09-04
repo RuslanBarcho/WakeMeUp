@@ -28,7 +28,8 @@ class RequestViewModel : ViewModel(){
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({requests ->
-                    state.postValue(RequestState.Success(requests))
+                    if (requests.size > 0)state.postValue(RequestState.Success(requests))
+                    else state.postValue(RequestState.Empty())
                 }, {
                     state.postValue(RequestState.Error())
                 })

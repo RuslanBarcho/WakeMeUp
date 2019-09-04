@@ -7,4 +7,5 @@ sealed class RequestState {
     class Loading: RequestState()
     class Success(val data: ArrayList<Request>): RequestState()
     class Error: RequestState()
+    class Empty: RequestState()
 }
