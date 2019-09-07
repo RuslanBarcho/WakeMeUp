@@ -1,7 +1,7 @@
 package io.vinter.wakemeup.network.service
 
 import io.reactivex.Single
-import io.vinter.wakemeup.entity.Friend
+import io.vinter.wakemeup.entity.friends.Friend
 import io.vinter.wakemeup.entity.LoginResponse
 import io.vinter.wakemeup.entity.Message
 import io.vinter.wakemeup.network.form.LoginForm

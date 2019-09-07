@@ -7,11 +7,11 @@ import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.vinter.wakemeup.entity.Message
+import io.vinter.wakemeup.entity.friends.FriendsRepository
 import io.vinter.wakemeup.network.NetModule
 import io.vinter.wakemeup.network.form.CallForm
 import io.vinter.wakemeup.network.form.SendRequestForm
 import io.vinter.wakemeup.network.service.FriendService
-import io.vinter.wakemeup.network.service.UserService
 
 @SuppressLint("CheckResult")
 class FriendsViewModel : ViewModel() {
@@ -19,6 +19,7 @@ class FriendsViewModel : ViewModel() {
     var state = MutableLiveData<FriendsState>()
     var messages = MutableLiveData<Message>()
     var error = MutableLiveData<String>()
+    private val repository = FriendsRepository()
 
     init {
         state.value = FriendsState.Initial()
@@ -26,15 +27,11 @@ class FriendsViewModel : ViewModel() {
 
     fun getFiends(token: String) {
         if (state.value !is FriendsState.Success) state.postValue(FriendsState.Loading())
-        NetModule.retrofit.create(UserService::class.java)
-                .getFriends("Bearer $token")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({friends ->
-                    state.postValue(FriendsState.Success(friends))
-                }, {
-                    state.postValue(FriendsState.Error())
-                })
+        repository.getFriends(token, {friends ->
+            state.postValue(FriendsState.Success(friends))
+        }, {
+            state.postValue(FriendsState.Error())
+        })
     }
 
     fun sendCall(token: String, id: String) {

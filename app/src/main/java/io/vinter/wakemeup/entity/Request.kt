@@ -2,6 +2,7 @@ package io.vinter.wakemeup.entity
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import io.vinter.wakemeup.entity.friends.Friend
 
 class Request {
 

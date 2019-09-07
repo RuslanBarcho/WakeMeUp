@@ -1,4 +1,4 @@
-package io.vinter.wakemeup.entity
+package io.vinter.wakemeup.entity.friends
 
 
 import com.google.gson.annotations.Expose

@@ -1,6 +1,6 @@
 package io.vinter.wakemeup.ui.friends
 
-import io.vinter.wakemeup.entity.Friend
+import io.vinter.wakemeup.entity.friends.Friend
 
 sealed class FriendsState {
     class Initial : FriendsState()

@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import io.vinter.wakemeup.R
-import io.vinter.wakemeup.entity.Friend
+import io.vinter.wakemeup.entity.friends.Friend
 
 class PairRecyclerAdapter(val context: Context, private var friends: ArrayList<Friend>, private var listener: (String) -> Unit)
     : RecyclerView.Adapter<PairRecyclerAdapter.PairViewHolder>() {
