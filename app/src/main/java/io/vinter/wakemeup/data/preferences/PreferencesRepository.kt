@@ -2,7 +2,7 @@ package io.vinter.wakemeup.data.preferences
 
 import android.content.Context
 import io.vinter.wakemeup.data.volume.VolumeStates
-import io.vinter.wakemeup.entity.LoginResponse
+import io.vinter.wakemeup.entity.user.User
 
 class PreferencesRepository(context: Context) {
 
@@ -12,7 +12,7 @@ class PreferencesRepository(context: Context) {
 
     fun getVibrationNeed(): Boolean {return preferences.getBoolean("vibrationNeed", false) }
 
-    fun setUserInfo(user: LoginResponse) {
+    fun setUserInfo(user: User) {
         preferences.edit().putString("token", user.token)
                 .putString("login", user.login)
                 .putString("pictureURL", user.pictureURL)

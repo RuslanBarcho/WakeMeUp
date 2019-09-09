@@ -1,9 +1,9 @@
-package io.vinter.wakemeup.entity
+package io.vinter.wakemeup.entity.user
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class LoginResponse {
+class User {
 
     @SerializedName("message")
     @Expose
