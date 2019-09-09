@@ -1,7 +1,6 @@
 package io.vinter.wakemeup.data.preferences
 
 import android.content.Context
-import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.volume.VolumeStates
 import io.vinter.wakemeup.entity.LoginResponse
 
@@ -33,5 +32,17 @@ class PreferencesRepository(context: Context) {
 
     fun getVolume(): VolumeStates{
         return VolumeStates.valueOf(preferences.getString("vol", "MEDIUM")!!)
+    }
+
+    fun setUserTopic(value: String?){
+        preferences.edit().putString("topic", value).apply()
+    }
+
+    fun clearUserTopic(){
+        preferences.edit().remove("topic").apply()
+    }
+
+    fun getUserTopic(): String{
+        return preferences.getString("topic", "")!!
     }
 }

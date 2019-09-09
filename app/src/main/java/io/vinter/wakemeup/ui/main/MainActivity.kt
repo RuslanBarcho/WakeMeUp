@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessaging
 import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.preferences.PreferencesRepository
@@ -43,11 +42,10 @@ class MainActivity : AppCompatActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        FirebaseMessaging.getInstance().subscribeToTopic(preferencesRepository.getUserId())
-                .addOnCompleteListener { task ->
-                    var msg = getString(R.string.firebase_success)
-                    if (!task.isSuccessful) msg = getString(R.string.firebase_error)
-                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+        val id = preferencesRepository.getUserId()
+        FirebaseMessaging.getInstance().subscribeToTopic(id)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) preferencesRepository.setUserTopic(id)
                 }
     }
 
