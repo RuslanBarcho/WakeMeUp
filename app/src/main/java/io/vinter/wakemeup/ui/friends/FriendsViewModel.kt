@@ -1,7 +1,7 @@
 package io.vinter.wakemeup.ui.friends
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.vinter.wakemeup.entity.Message
 import io.vinter.wakemeup.entity.friends.FriendsRepository
 

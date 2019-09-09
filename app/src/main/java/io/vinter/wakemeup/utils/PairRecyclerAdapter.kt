@@ -1,7 +1,7 @@
 package io.vinter.wakemeup.utils
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +17,7 @@ class PairRecyclerAdapter(val context: Context, private var friends: ArrayList<F
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): PairViewHolder {
         val inflater = LayoutInflater.from(p0.context)
         val itemView = inflater.inflate(R.layout.item_friend, p0, false)
-        return PairRecyclerAdapter.PairViewHolder(itemView)
+        return PairViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {

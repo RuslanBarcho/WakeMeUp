@@ -2,9 +2,9 @@ package io.vinter.wakemeup.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import com.google.firebase.messaging.FirebaseMessaging
 import io.vinter.wakemeup.R
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         val id = preferencesRepository.getUserId()
-        FirebaseMessaging.getInstance().subscribeToTopic(id)
+        FirebaseMessaging.getInstance().subscribeToTopic(id!!)
                 .addOnCompleteListener {
                     if (it.isSuccessful) preferencesRepository.setUserTopic(id)
                 }
@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         when (resultCode) {
             22 -> (Objects.requireNonNull<Fragment>(fragmentManager.findFragmentByTag("friends")) as FriendsFragment).refreshFriendList()
         }

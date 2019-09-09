@@ -12,10 +12,9 @@ import android.os.PowerManager
 import android.os.AsyncTask
 import io.vinter.wakemeup.utils.NotificationManager
 
-
 class MyFirebasePushService : FirebaseMessagingService() {
 
-    override fun onMessageReceived(p0: RemoteMessage?) {
+    override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
         val runnable = Runnable {
             NotificationManager.createNotificationChannel(this)

@@ -1,7 +1,7 @@
 package io.vinter.wakemeup.ui.main
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.preferences.PreferencesRepository

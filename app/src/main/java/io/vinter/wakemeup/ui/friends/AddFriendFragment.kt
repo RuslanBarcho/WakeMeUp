@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +26,7 @@ class AddFriendFragment : DialogFragment() {
         friend_search_add.setOnClickListener {
             if (friend_query.text.toString() != "") {
                 (targetFragment as FriendsFragment).addFriend(friend_query.text.toString())
-                dialog.dismiss()
+                dialog?.dismiss()
             }
         }
     }
