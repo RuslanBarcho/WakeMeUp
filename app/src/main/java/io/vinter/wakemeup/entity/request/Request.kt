@@ -1,4 +1,4 @@
-package io.vinter.wakemeup.entity
+package io.vinter.wakemeup.entity.request
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

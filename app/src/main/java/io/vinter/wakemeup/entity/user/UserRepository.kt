@@ -6,7 +6,6 @@ import io.reactivex.schedulers.Schedulers
 import io.vinter.wakemeup.network.NetModule
 import io.vinter.wakemeup.network.form.LoginForm
 import io.vinter.wakemeup.network.service.UserService
-import retrofit2.HttpException
 
 class UserRepository{
     fun authorize(form: LoginForm, onSuccess: (user: User) -> Unit, onError: (e: Throwable) -> Unit): Disposable{

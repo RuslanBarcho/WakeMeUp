@@ -2,7 +2,7 @@ package io.vinter.wakemeup.network.service
 
 import io.reactivex.Single
 import io.vinter.wakemeup.entity.Message
-import io.vinter.wakemeup.entity.Request
+import io.vinter.wakemeup.entity.request.Request
 import io.vinter.wakemeup.network.form.CallForm
 import io.vinter.wakemeup.network.form.FriendRequestForm
 import retrofit2.http.Body

@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import io.vinter.wakemeup.R
-import io.vinter.wakemeup.entity.Request
+import io.vinter.wakemeup.entity.request.Request
 
 class RequestRecyclerAdapter(val context: Context, private var requests: ArrayList<Request>, private var listener: (Int, Int) -> Unit)
     : RecyclerView.Adapter<RequestRecyclerAdapter.RequestViewHolder>() {

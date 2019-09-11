@@ -1,6 +1,6 @@
 package io.vinter.wakemeup.ui.request
 
-import io.vinter.wakemeup.entity.Request
+import io.vinter.wakemeup.entity.request.Request
 
 sealed class RequestState {
     class Initial: RequestState()
