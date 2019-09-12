@@ -11,19 +11,20 @@ import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.utils.RequestRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_request.*
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RequestActivity : AppCompatActivity() {
 
     var res = 0
     private val viewModel: RequestViewModel by viewModel()
+    private val preferences: PreferencesRepository = get()
     private lateinit var adapter: RequestRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request)
         val recycler = request_recycler
-        val preferences = PreferencesRepository(this)
 
         if (savedInstanceState != null) res = savedInstanceState.getInt("result")
         if (viewModel.state.value is RequestState.Initial) viewModel.getRequests(preferences.getToken())

@@ -10,9 +10,11 @@ import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.data.volume.VolumeStates
 import io.vinter.wakemeup.utils.NotificationManager
+import org.koin.android.ext.android.get
 
 class AlarmService : Service() {
 
+    private val preferences: PreferencesRepository = get()
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var am: AudioManager
     private lateinit var vibrator: Vibrator
@@ -32,13 +34,12 @@ class AlarmService : Service() {
 
         mediaPlayer.isLooping = true
         val handler = Handler(Looper.getMainLooper())
-        val repository = PreferencesRepository(this)
 
         val runnable = Runnable {
             volumeBefore = am.getStreamVolume(AudioManager.STREAM_MUSIC)
             am.isSpeakerphoneOn = true
-            am.setStreamVolume(AudioManager.STREAM_MUSIC, getVolumeLevel(repository, am), 0)
-            if (repository.getVibrationNeed()){
+            am.setStreamVolume(AudioManager.STREAM_MUSIC, getVolumeLevel(preferences, am), 0)
+            if (preferences.getVibrationNeed()){
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                     vibrator.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 550, 320, 550, 320, 550, 320), 1))
                 } else {

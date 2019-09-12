@@ -13,12 +13,13 @@ import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.utils.PairRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_friends.*
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FriendsFragment : Fragment() {
 
     private val viewModel: FriendsViewModel by viewModel()
-    private lateinit var preferences: PreferencesRepository
+    private val preferences: PreferencesRepository = get()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_friends, container, false)
@@ -26,7 +27,6 @@ class FriendsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferences = PreferencesRepository(context!!)
 
         if (viewModel.state.value is FriendsState.Initial) viewModel.getFiends(preferences.getToken())
 

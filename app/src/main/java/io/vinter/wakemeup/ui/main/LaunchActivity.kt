@@ -6,13 +6,16 @@ import android.os.Bundle
 import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.ui.login.LoginActivity
+import org.koin.android.ext.android.get
 
 class LaunchActivity : AppCompatActivity() {
+
+    private val preferences: PreferencesRepository = get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
-        val preferences = PreferencesRepository(this)
+
         if (preferences.getToken() == "") {
             this.startActivity(Intent(this, LoginActivity::class.java))
             this.finish()

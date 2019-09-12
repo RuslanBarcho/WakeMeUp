@@ -1,12 +1,10 @@
 package io.vinter.wakemeup.di
 
-import io.vinter.wakemeup.di.modules.friendModule
-import io.vinter.wakemeup.di.modules.networkModule
-import io.vinter.wakemeup.di.modules.requestModule
-import io.vinter.wakemeup.di.modules.userModule
+import io.vinter.wakemeup.di.modules.*
 
 val modules = mutableListOf(
         networkModule,
+        settingsModule,
         friendModule,
         requestModule,
         userModule

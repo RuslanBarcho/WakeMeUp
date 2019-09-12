@@ -15,8 +15,11 @@ import io.vinter.wakemeup.ui.request.RequestActivity
 import io.vinter.wakemeup.ui.settings.SettingsActivity
 import io.vinter.wakemeup.utils.GlideApp
 import kotlinx.android.synthetic.main.fragment_profile.*
+import org.koin.android.ext.android.get
 
 class ProfileFragment : Fragment() {
+
+    private val preferences: PreferencesRepository = get()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -26,7 +29,6 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val preferences = PreferencesRepository(context!!)
 
         GlideApp.with(context!!)
                 .load(preferences.getPictureUrl())

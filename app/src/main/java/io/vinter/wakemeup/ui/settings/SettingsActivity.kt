@@ -6,14 +6,15 @@ import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.ui.settings.volume.VolumeSetFragment
 import kotlinx.android.synthetic.main.activity_settings.*
+import org.koin.android.ext.android.get
 
 class SettingsActivity : AppCompatActivity() {
+
+    private val preferences: PreferencesRepository = get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
-        val preferences = PreferencesRepository(this)
 
         setting_volume.setOnClickListener {
             val volumeSetFragment = VolumeSetFragment()

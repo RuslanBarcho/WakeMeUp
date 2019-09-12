@@ -11,16 +11,17 @@ import io.vinter.wakemeup.network.form.LoginForm
 import io.vinter.wakemeup.ui.main.MainActivity
 import io.vinter.wakemeup.ui.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
 
     private val viewModel: LoginViewModel by viewModel()
+    private val preferences: PreferencesRepository = get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val preferencesRepository = PreferencesRepository(this)
 
         login_button.setOnClickListener {
             viewModel.getToken(LoginForm(login_login.text.toString(), login_password.text.toString()))
@@ -33,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.userData.observe(this, Observer {
             if (it != null){
-                preferencesRepository.setUserInfo(it)
+                preferences.setUserInfo(it)
                 this.startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
