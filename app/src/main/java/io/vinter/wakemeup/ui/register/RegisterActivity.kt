@@ -1,20 +1,21 @@
 package io.vinter.wakemeup.ui.register
 
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import io.vinter.wakemeup.R
 import io.vinter.wakemeup.network.form.RegisterForm
 import kotlinx.android.synthetic.main.activity_register.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
+
+    private val viewModel: RegisterViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        val viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
 
         register.setOnClickListener{
             if ((register_login.text.toString() != "") and (register_password.text.toString() != "")) {

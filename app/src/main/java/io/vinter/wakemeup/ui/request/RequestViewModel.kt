@@ -7,11 +7,10 @@ import io.vinter.wakemeup.entity.Message
 import io.vinter.wakemeup.entity.request.Request
 import io.vinter.wakemeup.entity.request.RequestRepository
 
-class RequestViewModel : ViewModel(){
+class RequestViewModel(private val repository: RequestRepository) : ViewModel(){
 
     var state = MutableLiveData<RequestState>()
     var message = MutableLiveData<Pair<Message, Request>>()
-    private val repository = RequestRepository()
 
     init {
         state.value = RequestState.Initial()

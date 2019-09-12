@@ -6,11 +6,10 @@ import io.vinter.wakemeup.entity.user.User
 import io.vinter.wakemeup.entity.user.UserRepository
 import io.vinter.wakemeup.network.form.LoginForm
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(private val repository: UserRepository) : ViewModel() {
 
     var userData = MutableLiveData<User>()
     var error = MutableLiveData<String>()
-    private val repository = UserRepository()
 
     fun getToken(form: LoginForm) {
         repository.authorize(form, userData::postValue)

@@ -2,6 +2,7 @@ package io.vinter.wakemeup.network.service
 
 import io.reactivex.Single
 import io.vinter.wakemeup.entity.Message
+import io.vinter.wakemeup.entity.friends.Friend
 import io.vinter.wakemeup.entity.request.Request
 import io.vinter.wakemeup.network.form.CallForm
 import io.vinter.wakemeup.network.form.FriendRequestForm
@@ -11,6 +12,8 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface FriendService {
+    @GET("/user/friends")
+    fun getFriends(@Header("Authorization") token: String): Single<ArrayList<Friend>>
 
     @POST("/pair/sendCall")
     fun sendCall(@Header("Authorization")token: String, @Body form: CallForm): Single<Message>

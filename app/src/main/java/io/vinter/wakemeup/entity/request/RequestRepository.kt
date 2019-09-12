@@ -7,9 +7,9 @@ import io.vinter.wakemeup.entity.Message
 import io.vinter.wakemeup.network.NetModule
 import io.vinter.wakemeup.network.service.FriendService
 
-class RequestRepository {
+class RequestRepository(private val service: FriendService) {
     fun getRequests(token: String, onSuccess: (friends: ArrayList<Request>) -> Unit, onError: (e: Throwable) -> Unit): Disposable{
-        return NetModule.retrofit.create(FriendService::class.java)
+        return service
                 .getRequests("Bearer $token")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -17,7 +17,7 @@ class RequestRepository {
     }
 
     fun acceptRequest(token: String, request: Request, onSuccess: (message: Message) -> Unit, onError: (e: Throwable) -> Unit): Disposable {
-        return NetModule.retrofit.create(FriendService::class.java)
+        return service
                 .acceptRequest("Bearer $token", request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -25,7 +25,7 @@ class RequestRepository {
     }
 
     fun rejectRequest(token: String, request: Request, onSuccess: (message: Message) -> Unit, onError: (e: Throwable) -> Unit): Disposable {
-        return NetModule.retrofit.create(FriendService::class.java)
+        return service
                 .rejectRequest("Bearer $token", request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

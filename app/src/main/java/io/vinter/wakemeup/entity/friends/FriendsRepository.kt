@@ -7,11 +7,10 @@ import io.vinter.wakemeup.entity.Message
 import io.vinter.wakemeup.network.form.CallForm
 import io.vinter.wakemeup.network.form.FriendRequestForm
 import io.vinter.wakemeup.network.service.FriendService
-import io.vinter.wakemeup.network.service.UserService
 
-class FriendsRepository(private val friendsService: FriendService, private val userService: UserService) {
+class FriendsRepository(private val friendsService: FriendService) {
     fun getFriends(token: String, onSuccess: (friends: ArrayList<Friend>) -> Unit, onError: (e: Throwable) -> Unit): Disposable {
-        return userService
+        return friendsService
                 .getFriends("Bearer $token")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -1,7 +1,6 @@
 package io.vinter.wakemeup.ui.login
 
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,15 +11,15 @@ import io.vinter.wakemeup.network.form.LoginForm
 import io.vinter.wakemeup.ui.main.MainActivity
 import io.vinter.wakemeup.ui.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         val preferencesRepository = PreferencesRepository(this)
 
         login_button.setOnClickListener {

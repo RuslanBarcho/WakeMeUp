@@ -17,7 +17,4 @@ interface UserService {
 
     @POST("/user/signup")
     fun register(@Body form: RegisterForm): Single<Message>
-
-    @GET("/user/friends")
-    fun getFriends(@Header("Authorization") token: String): Single<ArrayList<Friend>>
 }
