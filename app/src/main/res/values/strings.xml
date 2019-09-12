@@ -27,4 +27,6 @@
     <string name="error_default">An error occurred</string>
     <string name="unable_load_requests">Unable to load requests</string>
     <string name="no_new_requests">Seems like you have no new requests</string>
+    <string name="error_match_passwords">Password does not match confirm</string>
+    <string name="error_empty_fields">All fields are required</string>
 </resources>

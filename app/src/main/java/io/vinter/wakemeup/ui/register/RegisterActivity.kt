@@ -22,10 +22,10 @@ class RegisterActivity : AppCompatActivity() {
                 if (register_password.text.toString() == register_confirm_password.text.toString()) {
                     viewModel.register(RegisterForm(register_login.text.toString(), register_password.text.toString(), "https://pbs.twimg.com/profile_images/378800000532546226/dbe5f0727b69487016ffd67a6689e75a_400x400.jpeg"))
                 } else {
-                    Toast.makeText(this, "Password does not match confirm", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.error_match_passwords), Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_empty_fields), Toast.LENGTH_SHORT).show()
             }
         }
 

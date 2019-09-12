@@ -27,4 +27,6 @@
     <string name="error_default">Произошла ошибка</string>
     <string name="unable_load_requests">Не удалось загрузить запросы</string>
     <string name="no_new_requests">Похоже, у Вас нет новых запросов</string>
+    <string name="error_match_passwords">Пароли не совпадают</string>
+    <string name="error_empty_fields">Все поля обязательны</string>
 </resources>
