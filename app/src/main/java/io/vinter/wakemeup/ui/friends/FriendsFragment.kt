@@ -1,7 +1,6 @@
 package io.vinter.wakemeup.ui.friends
 
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,14 +13,14 @@ import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.utils.PairRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_friends.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FriendsFragment : Fragment() {
 
-    private lateinit var viewModel: FriendsViewModel
+    private val viewModel: FriendsViewModel by viewModel()
     private lateinit var preferences: PreferencesRepository
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewModel = ViewModelProviders.of(this).get(FriendsViewModel::class.java)
         return inflater.inflate(R.layout.fragment_friends, container, false)
     }
 

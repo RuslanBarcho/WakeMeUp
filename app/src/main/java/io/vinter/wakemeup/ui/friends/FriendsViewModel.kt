@@ -5,12 +5,11 @@ import androidx.lifecycle.ViewModel
 import io.vinter.wakemeup.entity.Message
 import io.vinter.wakemeup.entity.friends.FriendsRepository
 
-class FriendsViewModel : ViewModel() {
+class FriendsViewModel(private val repository: FriendsRepository) : ViewModel() {
 
     var state = MutableLiveData<FriendsState>()
     var messages = MutableLiveData<Message>()
     var error = MutableLiveData<String>()
-    private val repository = FriendsRepository()
 
     init {
         state.value = FriendsState.Initial()

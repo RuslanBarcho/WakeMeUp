@@ -52,6 +52,9 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
     implementation 'com.google.firebase:firebase-core:17.2.0'
+
+    implementation "org.koin:koin-android:2.0.1"
+    implementation "org.koin:koin-androidx-viewmodel:2.0.1"
 }
 
 apply plugin: 'com.google.gms.google-services'
