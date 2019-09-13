@@ -29,4 +29,12 @@
     <string name="no_new_requests">Seems like you have no new requests</string>
     <string name="error_match_passwords">Password does not match confirm</string>
     <string name="error_empty_fields">All fields are required</string>
+    <string name="no_account">Has no account?</string>
+    <string name="login_button">Login</string>
+    <string name="register">Register</string>
+    <string name="register_title">Enter some info</string>
+    <string name="login_text_field">login</string>
+    <string name="password_text_field">password</string>
+    <string name="password_confirm_text_field">confirm password</string>
+    <string name="register_button">Register</string>
 </resources>

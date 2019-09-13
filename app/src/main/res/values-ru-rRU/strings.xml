@@ -29,4 +29,12 @@
     <string name="no_new_requests">Похоже, у Вас нет новых запросов</string>
     <string name="error_match_passwords">Пароли не совпадают</string>
     <string name="error_empty_fields">Все поля обязательны</string>
+    <string name="no_account">Нет аккаунта?</string>
+    <string name="login_button">Войти</string>
+    <string name="register">Регистрация</string>
+    <string name="register_title">Введите данные</string>
+    <string name="login_text_field">логин</string>
+    <string name="password_text_field">пароль</string>
+    <string name="password_confirm_text_field">подтвердите пароль</string>
+    <string name="register_button">Зарегистрироваться</string>
 </resources>

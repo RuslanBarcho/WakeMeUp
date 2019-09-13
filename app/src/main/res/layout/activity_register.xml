@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:gravity="center_horizontal"
-        android:text="Enter some info"
+        android:text="@string/register_title"
         android:textColor="@android:color/background_light"
         android:textSize="36sp"
         android:textStyle="bold" />
@@ -26,12 +26,12 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/ripple_input"
         android:ems="10"
-        android:hint="login"
+        android:hint="@string/login_text_field"
         android:inputType="textPersonName"
         android:maxLines="1"
-        android:paddingBottom="10dp"
         android:paddingLeft="15dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
 
     <EditText
         android:id="@+id/register_password"
@@ -40,12 +40,12 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/ripple_input"
         android:ems="10"
-        android:hint="password"
+        android:hint="@string/password_text_field"
         android:inputType="textPassword"
         android:maxLines="1"
-        android:paddingBottom="10dp"
         android:paddingLeft="15dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
 
     <EditText
         android:id="@+id/register_confirm_password"
@@ -54,21 +54,21 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/ripple_input"
         android:ems="10"
-        android:hint="confirm password"
+        android:hint="@string/password_confirm_text_field"
         android:inputType="textPassword"
         android:maxLines="1"
-        android:paddingBottom="10dp"
         android:paddingLeft="15dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
 
     <Button
         android:id="@+id/register"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/ripple_accent"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        android:text="Register"
+        android:text="@string/register_button"
         android:textColor="@android:color/background_light" />
 </LinearLayout>
