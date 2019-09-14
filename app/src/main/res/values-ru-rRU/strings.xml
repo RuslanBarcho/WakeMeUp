@@ -37,4 +37,5 @@
     <string name="password_text_field">пароль</string>
     <string name="password_confirm_text_field">подтвердите пароль</string>
     <string name="register_button">Зарегистрироваться</string>
+    <string name="logout">Выйти</string>
 </resources>

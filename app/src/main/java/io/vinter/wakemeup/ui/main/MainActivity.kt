@@ -10,6 +10,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.ui.friends.FriendsFragment
+import io.vinter.wakemeup.ui.login.LoginActivity
 import io.vinter.wakemeup.ui.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -60,6 +61,10 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         when (resultCode) {
             22 -> (Objects.requireNonNull<Fragment>(fragmentManager.findFragmentByTag("friends")) as FriendsFragment).refreshFriendList()
+            45 -> {
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
         }
     }
 

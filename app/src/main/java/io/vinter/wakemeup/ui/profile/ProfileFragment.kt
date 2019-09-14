@@ -47,7 +47,7 @@ class ProfileFragment : Fragment() {
         }
 
         profile_settings.setOnClickListener {
-            activity!!.startActivityForResult(Intent(activity, SettingsActivity::class.java), 23)
+            activity!!.startActivityForResult(Intent(activity, SettingsActivity::class.java), 45)
         }
     }
 

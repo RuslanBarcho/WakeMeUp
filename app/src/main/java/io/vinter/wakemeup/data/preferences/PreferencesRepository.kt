@@ -22,6 +22,8 @@ class PreferencesRepository(context: Context) {
 
     fun getToken(): String { return preferences.getString("token", "")!! }
 
+    fun clearToken() { preferences.edit().remove("token").apply() }
+
     fun getUserId(): String? { return preferences.getString("id", "") }
 
     fun getPictureUrl(): String? { return preferences.getString("pictureURL", "") }

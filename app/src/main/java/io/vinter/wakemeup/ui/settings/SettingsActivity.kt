@@ -2,6 +2,7 @@ package io.vinter.wakemeup.ui.settings
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.firebase.messaging.FirebaseMessaging
 import io.vinter.wakemeup.R
 import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.ui.settings.volume.VolumeSetFragment
@@ -29,5 +30,16 @@ class SettingsActivity : AppCompatActivity() {
         settings_vibration_switch.setOnCheckedChangeListener { _, b -> preferences.setVibrationNeed(b)}
 
         setting_vibration.setOnClickListener { settings_vibration_switch.isChecked = !settings_vibration_switch.isChecked }
+
+        settings_logout.setOnClickListener {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(preferences.getUserTopic()).addOnCompleteListener {
+                if (it.isSuccessful){
+                    preferences.clearUserTopic()
+                    preferences.clearToken()
+                    setResult(45)
+                    finish()
+                }
+            }
+        }
     }
 }
