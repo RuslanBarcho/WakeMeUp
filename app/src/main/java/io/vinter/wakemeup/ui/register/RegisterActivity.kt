@@ -29,11 +29,14 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.message.observe(this, Observer {
-            if (it != null){
-                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                finish()
-                viewModel.message.postValue(null)
+        viewModel.state.observe(this, Observer {
+            when (it){
+                is RegisterState.SUCCESS -> {
+                    Toast.makeText(this, it.data.message, Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+                is RegisterState.LOADING -> register.isEnabled = false
+                is RegisterState.NORMAL -> register.isEnabled = true
             }
         })
 
