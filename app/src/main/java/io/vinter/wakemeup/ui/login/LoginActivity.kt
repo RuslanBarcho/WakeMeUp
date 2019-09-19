@@ -24,10 +24,14 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         login_button.setOnClickListener {
-            viewModel.getToken(LoginForm(login_login.text.toString(), login_password.text.toString()))
+            if (login_login.text.isNotEmpty() && login_password.text.isNotEmpty()) {
+                viewModel.getToken(LoginForm(login_login.text.toString(), login_password.text.toString()))
+            } else {
+                Toast.makeText(this, getString(R.string.error_empty_fields), Toast.LENGTH_SHORT).show()
+            }
         }
 
-        register_button.setOnClickListener{
+        register_button.setOnClickListener {
             val switchToRegister = Intent(this, RegisterActivity::class.java)
             this.startActivityForResult(switchToRegister, 1)
         }
