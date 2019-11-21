@@ -18,9 +18,13 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         register.setOnClickListener{
-            if ((register_login.text.toString() != "") and (register_password.text.toString() != "")) {
+            if ((register_login.text.toString().isNotEmpty()) and (register_password.text.toString().isNotEmpty())) {
                 if (register_password.text.toString() == register_confirm_password.text.toString()) {
-                    viewModel.register(RegisterForm(register_login.text.toString(), register_password.text.toString(), "https://pbs.twimg.com/profile_images/378800000532546226/dbe5f0727b69487016ffd67a6689e75a_400x400.jpeg"))
+                    viewModel.register(RegisterForm(
+                            register_login.text.toString(),
+                            register_password.text.toString(),
+                            "https://pbs.twimg.com/profile_images/378800000532546226/dbe5f0727b69487016ffd67a6689e75a_400x400.jpeg"
+                    ))
                 } else {
                     Toast.makeText(this, getString(R.string.error_match_passwords), Toast.LENGTH_SHORT).show()
                 }

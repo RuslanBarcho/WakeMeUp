@@ -12,9 +12,12 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
 
     fun register(form: RegisterForm) {
         state.postValue(RegisterState.LOADING())
-        repository.register(form, {RegisterState.SUCCESS(it)}) {
+        repository.register(form, {
+            state.postValue(RegisterState.SUCCESS(it))
+        }, {
             state.postValue(RegisterState.NORMAL())
-            error.postValue(it.localizedMessage)}
+            error.postValue(it.localizedMessage)
+        })
     }
 
 }
