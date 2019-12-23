@@ -7,25 +7,25 @@ import io.vinter.wakemeup.entity.Message
 import io.vinter.wakemeup.network.service.FriendService
 
 class RequestRepository(private val service: FriendService) {
-    fun getRequests(token: String, onSuccess: (friends: ArrayList<Request>) -> Unit, onError: (e: Throwable) -> Unit): Disposable{
+    fun getRequests(onSuccess: (friends: ArrayList<Request>) -> Unit, onError: (e: Throwable) -> Unit): Disposable{
         return service
-                .getRequests("Bearer $token")
+                .getRequests()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onSuccess, onError)
     }
 
-    fun acceptRequest(token: String, request: Request, onSuccess: (message: Message) -> Unit, onError: (e: Throwable) -> Unit): Disposable {
+    fun acceptRequest(request: Request, onSuccess: (message: Message) -> Unit, onError: (e: Throwable) -> Unit): Disposable {
         return service
-                .acceptRequest("Bearer $token", request)
+                .acceptRequest(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onSuccess, onError)
     }
 
-    fun rejectRequest(token: String, request: Request, onSuccess: (message: Message) -> Unit, onError: (e: Throwable) -> Unit): Disposable {
+    fun rejectRequest(request: Request, onSuccess: (message: Message) -> Unit, onError: (e: Throwable) -> Unit): Disposable {
         return service
-                .rejectRequest("Bearer $token", request)
+                .rejectRequest(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onSuccess, onError)

@@ -13,20 +13,20 @@ import retrofit2.http.POST
 
 interface FriendService {
     @GET("/user/friends")
-    fun getFriends(@Header("Authorization") token: String): Single<ArrayList<Friend>>
+    fun getFriends(): Single<ArrayList<Friend>>
 
     @POST("/pair/sendCall")
-    fun sendCall(@Header("Authorization")token: String, @Body form: CallForm): Single<Message>
+    fun sendCall(@Body form: CallForm): Single<Message>
 
     @POST("/request")
-    fun sendRequest(@Header("Authorization")token: String, @Body form: FriendRequestForm) : Single<Message>
+    fun sendRequest(@Body form: FriendRequestForm) : Single<Message>
 
     @GET("/request")
-    fun getRequests(@Header("Authorization")token: String) : Single<ArrayList<Request>>
+    fun getRequests() : Single<ArrayList<Request>>
 
     @POST("/request/accept")
-    fun acceptRequest(@Header("Authorization")token: String, @Body request: Request) : Single<Message>
+    fun acceptRequest(@Body request: Request) : Single<Message>
 
     @POST("/request/reject")
-    fun rejectRequest(@Header("Authorization")token: String, @Body request: Request): Single<Message>
+    fun rejectRequest(@Body request: Request): Single<Message>
 }

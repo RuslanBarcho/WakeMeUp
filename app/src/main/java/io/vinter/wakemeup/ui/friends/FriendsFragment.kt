@@ -10,16 +10,13 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import io.vinter.wakemeup.R
-import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.utils.PairRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_friends.*
-import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FriendsFragment : Fragment() {
 
     private val viewModel: FriendsViewModel by viewModel()
-    private val preferences: PreferencesRepository = get()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_friends, container, false)
@@ -28,7 +25,7 @@ class FriendsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (viewModel.state.value is FriendsState.Initial) viewModel.getFiends(preferences.getToken())
+        if (viewModel.state.value is FriendsState.Initial) viewModel.getFiends()
 
         viewModel.state.observe(this, Observer {
             when (it) {
@@ -41,13 +38,13 @@ class FriendsFragment : Fragment() {
                     configureVisibility(View.VISIBLE, View.GONE, View.GONE)
                     pairs_recycler.layoutManager = LinearLayoutManager(context)
                     pairs_recycler.layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
-                    pairs_recycler.adapter = PairRecyclerAdapter(context!!, it.friends) {id -> viewModel.sendCall(preferences.getToken(), id)}
+                    pairs_recycler.adapter = PairRecyclerAdapter(context!!, it.friends) {id -> viewModel.sendCall(id)}
                 }
                 is FriendsState.Error -> {
                     configureRefresh(false, enabled = false)
                     configureVisibility(View.GONE, View.VISIBLE, View.GONE)
                     friends_error.setErrorMessage(getString(R.string.unable_load_friends))
-                    friends_error.setOnRetryListener { viewModel.getFiends(preferences.getToken()) }
+                    friends_error.setOnRetryListener { viewModel.getFiends() }
                 }
             }
         })
@@ -86,8 +83,8 @@ class FriendsFragment : Fragment() {
         friends_refresh.isEnabled = enabled
     }
 
-    fun addFriend(query: String){ viewModel.sendRequest(preferences.getToken(), query) }
+    fun addFriend(query: String){ viewModel.sendRequest(query) }
 
-    fun refreshFriendList(){ viewModel.getFiends(preferences.getToken()) }
+    fun refreshFriendList(){ viewModel.getFiends() }
 
 }

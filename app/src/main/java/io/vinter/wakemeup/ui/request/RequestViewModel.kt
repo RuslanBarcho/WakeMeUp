@@ -16,9 +16,9 @@ class RequestViewModel(private val repository: RequestRepository) : ViewModel(){
         state.value = RequestState.Initial()
     }
 
-    fun getRequests(token: String){
+    fun getRequests() {
         if (state.value !is RequestState.Success) state.postValue(RequestState.Loading())
-        repository.getRequests(token, {requests ->
+        repository.getRequests( { requests ->
             if (requests.size > 0)state.postValue(RequestState.Success(requests))
             else state.postValue(RequestState.Empty())
         }, {
@@ -26,13 +26,15 @@ class RequestViewModel(private val repository: RequestRepository) : ViewModel(){
         })
     }
 
-    fun acceptRequest(token: String, request: Request){
-        repository.acceptRequest(token, request, {message.postValue(Pair(it, request))},
-                {Log.e("Network", it.message) } )
+    fun acceptRequest(request: Request) {
+        repository.acceptRequest(request, {
+            message.postValue(Pair(it, request))
+        }, { Log.e("Network", it.message) } )
     }
 
-    fun rejectRequest(token: String, request: Request){
-        repository.rejectRequest(token, request, {message.postValue(Pair(it, request))},
-                {Log.e("Network", it.message) } )
+    fun rejectRequest(request: Request) {
+        repository.rejectRequest(request, {
+            message.postValue(Pair(it, request))
+        }, { Log.e("Network", it.message) } )
     }
 }

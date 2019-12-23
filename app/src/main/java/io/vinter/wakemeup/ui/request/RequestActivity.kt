@@ -8,17 +8,14 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import io.vinter.wakemeup.R
-import io.vinter.wakemeup.data.preferences.PreferencesRepository
 import io.vinter.wakemeup.utils.RequestRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_request.*
-import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RequestActivity : AppCompatActivity() {
 
     var res = 0
     private val viewModel: RequestViewModel by viewModel()
-    private val preferences: PreferencesRepository = get()
     private lateinit var adapter: RequestRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +24,7 @@ class RequestActivity : AppCompatActivity() {
         val recycler = request_recycler
 
         if (savedInstanceState != null) res = savedInstanceState.getInt("result")
-        if (viewModel.state.value is RequestState.Initial) viewModel.getRequests(preferences.getToken())
+        if (viewModel.state.value is RequestState.Initial) viewModel.getRequests()
 
         viewModel.state.observe(this, Observer {
             when (it){
@@ -38,8 +35,8 @@ class RequestActivity : AppCompatActivity() {
                     setVisibility(View.GONE, View.GONE, View.GONE)
                     adapter = RequestRecyclerAdapter(this, it.data) {position, mode ->
                         when(mode){
-                            0 -> viewModel.acceptRequest(preferences.getToken(), it.data[position])
-                            1 -> viewModel.rejectRequest(preferences.getToken(), it.data[position])
+                            0 -> viewModel.acceptRequest(it.data[position])
+                            1 -> viewModel.rejectRequest(it.data[position])
                         }
                     }
                     recycler.layoutManager = LinearLayoutManager(this)
@@ -48,7 +45,7 @@ class RequestActivity : AppCompatActivity() {
                 }
                 is RequestState.Error -> {
                     request_error.setErrorMessage(getString(R.string.unable_load_requests))
-                    request_error.setOnRetryListener { viewModel.getRequests(preferences.getToken()) }
+                    request_error.setOnRetryListener { viewModel.getRequests() }
                     setVisibility(View.GONE, View.VISIBLE, View.GONE)
                 }
                 is RequestState.Empty ->  {

@@ -11,12 +11,12 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
     var error = MutableLiveData<String>()
 
     fun getToken(form: LoginForm) {
-        state.postValue(LoginState.LOADING())
+        state.postValue(LoginState.Loading)
         repository.authorize(form, {user ->
-            state.postValue(LoginState.SUCCESS(user))
+            state.postValue(LoginState.Success(user))
         })
         {
-            state.postValue(LoginState.NORMAL())
+            state.postValue(LoginState.Initial)
             error.postValue(it.localizedMessage)
         }
     }

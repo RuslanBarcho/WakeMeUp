@@ -38,13 +38,13 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.state.observe(this, Observer {
             when (it){
-                is LoginState.SUCCESS -> {
+                is LoginState.Success -> {
                     preferences.setUserInfo(it.userData)
                     this.startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
-                is LoginState.LOADING -> login_button.isEnabled = false
-                is LoginState.NORMAL -> login_button.isEnabled = true
+                is LoginState.Loading -> login_button.isEnabled = false
+                is LoginState.Initial -> login_button.isEnabled = true
             }
         })
 

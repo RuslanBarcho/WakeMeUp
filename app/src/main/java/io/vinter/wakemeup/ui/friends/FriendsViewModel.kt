@@ -15,20 +15,20 @@ class FriendsViewModel(private val repository: FriendsRepository) : ViewModel() 
         state.value = FriendsState.Initial()
     }
 
-    fun getFiends(token: String) {
+    fun getFiends() {
         if (state.value !is FriendsState.Success) state.postValue(FriendsState.Loading())
-        repository.getFriends(token, {friends ->
+        repository.getFriends({friends ->
             state.postValue(FriendsState.Success(friends))
         }, {
             state.postValue(FriendsState.Error())
         })
     }
 
-    fun sendCall(token: String, id: String) {
-        repository.callFriend(token, id, messages::postValue) {error.postValue(it.localizedMessage)}
+    fun sendCall(id: String) {
+        repository.callFriend(id, messages::postValue) {error.postValue(it.localizedMessage)}
     }
 
-    fun sendRequest(token: String, query: String){
-        repository.sendFriendRequest(token, query, messages::postValue) {error.postValue(it.localizedMessage)}
+    fun sendRequest(query: String){
+        repository.sendFriendRequest(query, messages::postValue) {error.postValue(it.localizedMessage)}
     }
 }
