@@ -33,4 +33,11 @@ class FriendsRepository(private val friendsService: FriendService) {
                 .subscribe(onSuccess, onError)
     }
 
+    fun deleteFriend(friend: Friend, onSuccess: (friend: Friend) -> Unit, onError: (e: Throwable) -> Unit): Disposable {
+        return friendsService
+                .deleteFriend(friend.id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ onSuccess(friend) }, onError)
+    }
 }

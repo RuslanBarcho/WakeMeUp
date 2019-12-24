@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/friend_remove"
+        android:icon="@drawable/ic_dropdown_cancel"
+        android:title="@string/item_dropdown_friends_remove" />
+
+</menu>

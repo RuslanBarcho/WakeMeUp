@@ -2,17 +2,52 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/colorPrimaryDark</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="droppyPopupStyle">@style/DropDownPopup</item>
+        <item name="droppyMenuStyle">@style/DropDownMenu</item>
+        <item name="droppyMenuItemStyle">@style/DropDownMenuItem</item>
+        <item name="droppyMenuItemTitleStyle">@style/DropDownMenuItemTitle</item>
+        <item name="droppyMenuItemIconStyle">@style/DropDownMenuItemItemIcon</item>
     </style>
 
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
+
+    <style name="DropDownPopup" parent="Droppy.DroppyPopup">
+        <item name="android:background">@drawable/dropdown_inset</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:padding">15dp</item>
+    </style>
+
+    <style name="DropDownMenu" parent="Droppy.DroppyMenu">
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="DropDownMenuItem" parent="Droppy.DroppyMenuItem">
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:background">@drawable/ripple_transparent</item>
+    </style>
+
+    <style name="DropDownMenuItemTitle" parent="Droppy.DroppyMenuItemTitle">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#DADADA</item>
+        <item name="android:paddingRight">12dp</item>
+    </style>
+
+    <style name="DropDownMenuItemItemIcon" parent="Droppy.DroppyMenuItemIcon">
+        <item name="android:paddingRight">6dp</item>
     </style>
 
 </resources>

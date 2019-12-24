@@ -8,4 +8,5 @@
     <color name="colorGrey">#252A31</color>
     <color name="colorAccentNegative">#B11E53</color>
     <color name="colorAccentNegativeDark">#801339</color>
+    <color name="colorDialog">#242233</color>
 </resources>

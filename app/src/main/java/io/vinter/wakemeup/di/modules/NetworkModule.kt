@@ -1,5 +1,6 @@
 package io.vinter.wakemeup.di.modules
 
+import io.vinter.wakemeup.BuildConfig.BASE_URL
 import io.vinter.wakemeup.utils.AuthInterceptor
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
@@ -20,7 +21,7 @@ val networkModule = module {
                 .client(get() as OkHttpClient)
                 .addCallAdapterFactory(get() as RxJava2CallAdapterFactory)
                 .addConverterFactory(get() as GsonConverterFactory)
-                .baseUrl("http://95.165.154.234:3000/")
+                .baseUrl(BASE_URL)
                 .build()
     }
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/dropdown_background"
+    android:insetTop="8dp"
+    android:insetRight="7dp"
+    android:insetLeft="7dp"
+    android:insetBottom="8dp">
+</inset>

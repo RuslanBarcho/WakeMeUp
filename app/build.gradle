@@ -13,6 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "BASE_URL", '"http://95.165.154.234:3000/"'
     }
     buildTypes {
         release {
@@ -50,4 +51,5 @@ dependencies {
     def koin_version = "2.0.1"
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation 'com.shehabic.droppy:Droppy:0.6.0@aar'
 }

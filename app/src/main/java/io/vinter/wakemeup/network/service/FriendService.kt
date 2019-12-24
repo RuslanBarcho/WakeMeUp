@@ -6,14 +6,14 @@ import io.vinter.wakemeup.entity.friends.Friend
 import io.vinter.wakemeup.entity.request.Request
 import io.vinter.wakemeup.network.form.CallForm
 import io.vinter.wakemeup.network.form.FriendRequestForm
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface FriendService {
     @GET("/user/friends")
     fun getFriends(): Single<ArrayList<Friend>>
+
+    @DELETE("/user/friends/")
+    fun deleteFriend(@Query("friendId") friendId: String?): Single<Message>
 
     @POST("/pair/sendCall")
     fun sendCall(@Body form: CallForm): Single<Message>

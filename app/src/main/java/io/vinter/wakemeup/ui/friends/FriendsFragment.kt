@@ -16,6 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FriendsFragment : Fragment() {
 
+    private lateinit var adapter: PairRecyclerAdapter
     private val viewModel: FriendsViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -38,7 +39,12 @@ class FriendsFragment : Fragment() {
                     configureVisibility(View.VISIBLE, View.GONE, View.GONE)
                     pairs_recycler.layoutManager = LinearLayoutManager(context)
                     pairs_recycler.layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
-                    pairs_recycler.adapter = PairRecyclerAdapter(context!!, it.friends) {id -> viewModel.sendCall(id)}
+                    adapter = PairRecyclerAdapter(it.friends, {
+                        id -> viewModel.sendCall(id)
+                    }, {
+                        friend -> viewModel.deleteFriend(friend)
+                    })
+                    pairs_recycler.adapter = adapter
                 }
                 is FriendsState.Error -> {
                     configureRefresh(false, enabled = false)
@@ -51,6 +57,12 @@ class FriendsFragment : Fragment() {
 
         friends_refresh.setOnRefreshListener { refreshFriendList() }
 
+        friends_add.setOnClickListener {
+            val addFriendsFragment = AddFriendFragment()
+            addFriendsFragment.setTargetFragment(this, 0)
+            addFriendsFragment.show(fragmentManager!!, "add_friend_dialog")
+        }
+
         viewModel.messages.observe(this, Observer {
             if (it != null) {
                 Toast.makeText(context, it.getLocalizedMessage(context), Toast.LENGTH_SHORT).show()
@@ -58,16 +70,17 @@ class FriendsFragment : Fragment() {
             }
         })
 
-        friends_add.setOnClickListener {
-            val addFriendsFragment = AddFriendFragment()
-            addFriendsFragment.setTargetFragment(this, 0)
-            addFriendsFragment.show(fragmentManager!!, "add_friend_dialog")
-        }
-
         viewModel.error.observe(this, Observer {
             if (it != null) {
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                 viewModel.error.postValue(null)
+            }
+        })
+
+        viewModel.deletedFriend.observe(this, Observer {
+            if (it != null) {
+                adapter.remove(it)
+                viewModel.deletedFriend.postValue(null)
             }
         })
     }
@@ -83,8 +96,8 @@ class FriendsFragment : Fragment() {
         friends_refresh.isEnabled = enabled
     }
 
-    fun addFriend(query: String){ viewModel.sendRequest(query) }
+    fun addFriend(query: String) = viewModel.sendRequest(query)
 
-    fun refreshFriendList(){ viewModel.getFiends() }
+    fun refreshFriendList() = viewModel.getFiends()
 
 }

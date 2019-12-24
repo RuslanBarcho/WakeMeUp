@@ -38,4 +38,6 @@
     <string name="password_confirm_text_field">confirm password</string>
     <string name="register_button">Register</string>
     <string name="logout">Logout</string>
+
+    <string name="item_dropdown_friends_remove">Remove from friends</string>
 </resources>
