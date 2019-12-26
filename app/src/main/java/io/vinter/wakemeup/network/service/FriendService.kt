@@ -15,7 +15,7 @@ interface FriendService {
     @DELETE("/user/friends/")
     fun deleteFriend(@Query("friendId") friendId: String?): Single<Message>
 
-    @POST("/pair/sendCall")
+    @POST("/call/send")
     fun sendCall(@Body form: CallForm): Single<Message>
 
     @POST("/request")
